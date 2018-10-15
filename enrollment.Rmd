@@ -1,0 +1,25 @@
+---
+title: "Enrollment"
+author: "David Kane"
+date: "10/15/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(janitor)
+```
+
+```{r}
+
+
+
+e_18 <- read_excel("class_enrollment_summary_by_term_10_12.xlsx") 
+
+
+
+```
+
+
