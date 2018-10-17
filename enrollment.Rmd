@@ -16,10 +16,21 @@ library(janitor)
 
 
 
-e_18 <- read_excel("class_enrollment_summary_by_term_10_12.xlsx") 
+e_18 <- read_excel("class_enrollment_summary_by_term_10_12.xlsx", skip = 3) %>% clean_names() %>%  filter(!is.na(course_name)) %>% distinct(course_id, .keep_all = TRUE) 
+e_17 <- read_excel("class_enrollment_summary_by_term_10.20.17.xlsx", skip = 3) %>% clean_names() %>% filter(!is.na(course_name)) %>% distinct(course_id, .keep_all = TRUE)
+e_16 <- read_excel("copy_of_class_enrollment_summary_by_term_10.06.2016.xlsx", skip = 3) %>% clean_names() %>% filter(!is.na(course_name))
+e_15 <- read_excel("CourseEnrollmentStatistics.xlsx") %>% clean_names() %>% filter(!is.na(course_id))
 
 
 
+```
+
+```{r}
+e_18_17 <- left_join(e_18, e_17, by = "course_id", suffix = c(".18", ".17")) %>%  mutate(dif = u_grad.18 - u_grad.17)
+e_18_17 %>% arrange(desc(dif)) %>% select(course_title.18, dif, course_name.18) %>% head(10)
+
+e_18_15 <- left_join(e_18, e_15, by = "course_id")
+e_18_15 %>% mutate(dif = u_grad - hcol) %>% arrange(desc(dif)) %>% select(course_title, dif, course_name) %>% slice(1:10)
 ```
 
 
